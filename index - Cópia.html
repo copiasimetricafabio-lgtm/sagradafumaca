@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sagrada Fumaça Express</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0f0f11;
+      --card-bg: rgba(24, 24, 28, 0.75);
+      --primary: #ff4500;
+      --primary-hover: #ff5714;
+      --accent: #ffb703;
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(255, 69, 0, 0.15), transparent 50%),
+        linear-gradient(rgba(15, 15, 17, 0.92), rgba(15, 15, 17, 0.95)),
+        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80');
+      background-position: center;
+      background-repeat: repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      color: var(--text-main);
+      padding-bottom: 120px;
+      min-height: 100vh;
+    }
+
+    header {
+      position: relative;
+      padding: 35px 20px 20px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(15,15,17,0) 100%);
+    }
+
+    .logo-container {
+      display: inline-block;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+
+    header img {
+      max-width: 220px;
+      height: auto;
+      display: block;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-top: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+    }
+
+    .status-badge.aberto {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #4ade80;
+    }
+
+    .status-badge.fechado {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-badge.aberto .status-dot {
+      background-color: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+    }
+
+    .status-badge.fechado .status-dot {
+      background-color: #f87171;
+      box-shadow: 0 0 8px #f87171;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .cliente-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 15px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cliente-input, .cliente-select, .cliente-textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 15px;
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .cliente-select option {
+      background: var(--bg-dark);
+      color: var(--text-main);
+    }
+
+    .cliente-textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .cliente-input:focus, .cliente-select:focus, .cliente-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .categoria-titulo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 25px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .categoria-titulo::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .categoria-subtitulo {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: -10px;
+      margin-bottom: 15px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .item-card:hover {
+      border-color: rgba(255, 69, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .item-info p {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .item-preco {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    /* LADO DIREITO: CONTROLES + FOTO */
+    .item-acoes-direita {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .controles-qtd {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px 10px;
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-qtd {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 10px rgba(255, 69, 0, 0.3);
+    }
+
+    .btn-qtd:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-qtd:active {
+      transform: scale(0.9);
+    }
+
+    .qtd-numero {
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .item-foto-thumb {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .item-foto-thumb:hover {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+
+    .carrinho-wrapper {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0 16px;
+      z-index: 100;
+    }
+
+    .carrinho-bar {
+      width: 100%;
+      max-width: 650px;
+      background: rgba(24, 24, 28, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .total-info span {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+    }
+
+    .total-info strong {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .btn-finalizar {
+      background: linear-gradient(135deg, #ff5714 0%, #ff2500 100%);
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 69, 0, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-finalizar:disabled {
+      background: #3f3f46;
+      color: #a1a1aa;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-finalizar:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(255, 69, 0, 0.5);
+    }
+
+    /* --- MODAL DE FOTO (LIGHTBOX ANIMADO) --- */
+    .modal-foto-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-foto-overlay.ativo {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-foto-container {
+      position: relative;
+      max-width: 90%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: scale(0.85) translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-foto-overlay.ativo .modal-foto-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-foto-img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      object-fit: contain;
+    }
+
+    .modal-foto-legenda {
+      margin-top: 15px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .btn-fechar-modal {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background: var(--primary);
+      color: white;
+      border: 2px solid #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn-fechar-modal:hover {
+      background-color: var(--primary-hover);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container" onclick="gestorCliqueLogo()">
+      <img src="logo.png" alt="Sagrada Fumaça Express" onerror="this.onerror=null; this.src='logo.jpg';">
+    </div>
+    <br>
+    <div id="badge-status-loja" class="status-badge aberto">
+      <span class="status-dot"></span> <span id="texto-status-loja">Aberto para pedidos</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="cliente-card">
+      <div class="form-group">
+        <label for="nome-cliente">Seu Nome</label>
+        <input type="text" id="nome-cliente" class="cliente-input" placeholder="Digite seu nome para o pedido...">
+      </div>
+
+      <div class="form-group">
+        <label for="tipo-consumo">Tipo de Pedido</label>
+        <select id="tipo-consumo" class="cliente-select">
+          <option value="" disabled selected>Selecione se vai levar ou consumir aqui...</option>
+          <option value="Consumir no Local">Consumir no Local</option>
+          <option value="Para Viagem">Para Viagem</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pagamento-cliente">Forma de Pagamento</label>
+        <select id="pagamento-cliente" class="cliente-select">
+          <option value="" disabled selected>Selecione a forma de pagamento...</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="PIX">PIX</option>
+          <option value="Cartão de Débito">Cartão de Débito</option>
+          <option value="Cartão de Crédito">Cartão de Crédito</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="obs-cliente">Observações / Retirar ingredientes</label>
+        <textarea id="obs-cliente" class="cliente-textarea" placeholder="Ex: Tirar salada, sem maionese grill, lanche bem passado..."></textarea>
+      </div>
+    </div>
+
+    <h2 class="categoria-titulo">🍔 Burgers</h2>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Pão Carne Queijo</h3>
+        <p>Pão de hambúrguer artesanal, hambúrguer bovino defumado de 120gr, queijo cheddar processado, alface, tomate e maionese grill.</p>
+        <span class="item-preco">R$ 35,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pão Carne Queijo', 35.00, -1)">-</button>
+          <span id="qtd-Pão Carne Queijo" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pão Carne Queijo', 35.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Pernil</h3>
+        <p>Pão de hambúrguer artesanal, hambúrguer suíno defumado de 180gr, queijo prato, tomate, cebola e maionese grill.</p>
+        <span class="item-preco">R$ 37,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pernil', 37.00, -1)">-</button>
+          <span id="qtd-Pernil" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pernil', 37.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Cupim</h3>
+        <p>Pão de hambúrguer artesanal, hambúrguer de cupim bovino defumado de 180gr, queijo prato, requeijão cremoso e maionese grill.</p>
+        <span class="item-preco">R$ 40,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Cupim', 40.00, -1)">-</button>
+          <span id="qtd-Cupim" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Cupim', 40.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Cordeiro</h3>
+        <p>Pão de hambúrguer artesanal, hambúrguer de carneiro defumado de 180gr, queijo prato e maionese grill.</p>
+        <span class="item-preco">R$ 42,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Cordeiro', 42.00, -1)">-</button>
+          <span id="qtd-Cordeiro" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Cordeiro', 42.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="categoria-titulo">🍕 Pizzas</h2>
+    <div class="categoria-subtitulo">📐 Tamanho único: 20 centímetros</div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Mussarela</h3>
+        <p>Massa artesanal, molho especial e mussarela.</p>
+        <span class="item-preco">R$ 22,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Mussarela', 22.00, -1)">-</button>
+          <span id="qtd-Pizza Mussarela" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Mussarela', 22.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Presunto e Queijo</h3>
+        <p>Massa artesanal, molho especial, apresuntado e mussarela.</p>
+        <span class="item-preco">R$ 22,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Presunto e Queijo', 22.00, -1)">-</button>
+          <span id="qtd-Pizza Presunto e Queijo" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Presunto e Queijo', 22.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Calabresa e Queijo</h3>
+        <p>Massa artesanal, molho especial, calabresa e mussarela.</p>
+        <span class="item-preco">R$ 22,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Calabresa e Queijo', 22.00, -1)">-</button>
+          <span id="qtd-Pizza Calabresa e Queijo" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Calabresa e Queijo', 22.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Fraldinha</h3>
+        <p>Massa artesanal, molho especial, fraldinha bovina defumada e mussarela.</p>
+        <span class="item-preco">R$ 26,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Fraldinha', 26.00, -1)">-</button>
+          <span id="qtd-Pizza Fraldinha" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Fraldinha', 26.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Frango</h3>
+        <p>Massa artesanal, molho especial defumado, frango e mussarela.</p>
+        <span class="item-preco">R$ 26,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Frango', 26.00, -1)">-</button>
+          <span id="qtd-Pizza Frango" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Frango', 26.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Carne Seca</h3>
+        <p>Massa artesanal, molho especial defumado, carne seca e mussarela.</p>
+        <span class="item-preco">R$ 26,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Carne Seca', 26.00, -1)">-</button>
+          <span id="qtd-Pizza Carne Seca" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Pizza Carne Seca', 26.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="categoria-titulo">🍟 Porções</h2>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Batata Frita</h3>
+        <p>400gr de batata palito e maionese grill.</p>
+        <span class="item-preco">R$ 35,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Batata Frita', 35.00, -1)">-</button>
+          <span id="qtd-Porção Batata Frita" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Batata Frita', 35.00, 1)">+</button>
+        </div>
+        <img src="batata.jpg" alt="Porção Batata Frita" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Batata Frita')">
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Medalhão na Chapa</h3>
+        <p>200gr de medalhão de frango e 2 unidades de pão de alho.</p>
+        <span class="item-preco">R$ 41,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Medalhão na Chapa', 41.00, -1)">-</button>
+          <span id="qtd-Porção Medalhão na Chapa" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Medalhão na Chapa', 41.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Fraldinha</h3>
+        <p>200gr de fraldinha bovina defumada, 1 unidade de pão de alho e 1 unidade de queijo coalho.</p>
+        <span class="item-preco">R$ 44,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Fraldinha', 44.00, -1)">-</button>
+          <span id="qtd-Porção Fraldinha" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Fraldinha', 44.00, 1)">+</button>
+        </div>
+        <img src="fraldinha.jpg" alt="Porção Fraldinha" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Fraldinha')">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="carrinho-wrapper">
+    <div class="carrinho-bar">
+      <div class="total-info">
+        <span>Total do Pedido</span>
+        <strong id="valor-total">R$ 0,00</strong>
+      </div>
+      <button id="btn-finalizar" class="btn-finalizar" onclick="enviarWhatsApp()">
+        <span>Finalizar</span> 🛒
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTAINER DO MODAL DE FOTO FULLSCREEN -->
+  <div id="modal-foto" class="modal-foto-overlay" onclick="fecharModalFoto()">
+    <div class="modal-foto-container" onclick="event.stopPropagation()">
+      <button class="btn-fechar-modal" onclick="fecharModalFoto()">✕</button>
+      <img id="modal-foto-img" class="modal-foto-img" src="" alt="Foto expandida">
+      <div id="modal-foto-legenda" class="modal-foto-legenda"></div>
+    </div>
+  </div>
+
+  <script>
+    let lojaAberta = true; 
+    const carrinho = {};
+    let contadorCliquesLogo = 0;
+
+    window.onload = function() {
+      const statusSalvo = localStorage.getItem('sagrada_loja_aberta');
+      if (statusSalvo !== null) {
+        lojaAberta = JSON.parse(statusSalvo);
+      }
+      atualizarStatusLoja();
+    };
+
+    function atualizarStatusLoja() {
+      const badge = document.getElementById('badge-status-loja');
+      const textoStatus = document.getElementById('texto-status-loja');
+      const btnFinalizar = document.getElementById('btn-finalizar');
+
+      if (lojaAberta) {
+        badge.className = "status-badge aberto";
+        textoStatus.innerText = "Aberto para pedidos";
+        btnFinalizar.disabled = false;
+        btnFinalizar.style.opacity = "1";
+      } else {
+        badge.className = "status-badge fechado";
+        textoStatus.innerText = "Fechado no momento";
+        btnFinalizar.disabled = true;
+        btnFinalizar.style.opacity = "0.5";
+      }
+    }
+
+    function gestorCliqueLogo() {
+      contadorCliquesLogo++;
+      if (contadorCliquesLogo === 3) {
+        contadorCliquesLogo = 0;
+        const confirmacao = confirm(
+          `PAINEL DO GESTOR:\nA loja está atualmente ${lojaAberta ? 'ABERTA' : 'FECHADA'}.\n\nDeseja alterar o status agora?`
+        );
+        if (confirmacao) {
+          lojaAberta = !lojaAberta;
+          localStorage.setItem('sagrada_loja_aberta', JSON.stringify(lojaAberta));
+          atualizarStatusLoja();
+          alert(`Status alterado com sucesso! Agora a loja está: ${lojaAberta ? 'ABERTA' : 'FECHADA'}`);
+        }
+      }
+      setTimeout(() => { contadorCliquesLogo = 0; }, 2000);
+    }
+
+    /* --- FUNÇÕES DO MODAL DE FOTO ANIMADO --- */
+    function abrirModalFoto(src, titulo) {
+      const modal = document.getElementById('modal-foto');
+      const img = document.getElementById('modal-foto-img');
+      const legenda = document.getElementById('modal-foto-legenda');
+      
+      img.src = src;
+      legenda.innerText = titulo;
+      modal.classList.add('ativo');
+    }
+
+    function fecharModalFoto() {
+      const modal = document.getElementById('modal-foto');
+      modal.classList.remove('ativo');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        fecharModalFoto();
+      }
+    });
+
+    function alterarQtd(nome, preco, mudanca) {
+      if (!carrinho[nome]) {
+        carrinho[nome] = { quantidade: 0, preco: preco };
+      }
+
+      carrinho[nome].quantidade += mudanca;
+
+      if (carrinho[nome].quantidade < 0) {
+        carrinho[nome].quantidade = 0;
+      }
+
+      document.getElementById(`qtd-${nome}`).innerText = carrinho[nome].quantidade;
+      atualizarTotal();
+    }
+
+    function calcularTotal() {
+      let total = 0;
+      for (const item in carrinho) {
+        total += carrinho[item].quantidade * carrinho[item].preco;
+      }
+      return total;
+    }
+
+    function atualizarTotal() {
+      const total = calcularTotal();
+      document.getElementById('valor-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    function enviarWhatsApp() {
+      if (!lojaAberta) {
+        alert("Desculpe, estamos fechados para novos pedidos no momento!");
+        return;
+      }
+
+      const nomeCliente = document.getElementById('nome-cliente').value.trim();
+      const tipoConsumo = document.getElementById('tipo-consumo').value;
+      const formaPagamento = document.getElementById('pagamento-cliente').value;
+      const obsCliente = document.getElementById('obs-cliente').value.trim();
+      const total = calcularTotal();
+
+      if (!nomeCliente) {
+        alert("Por favor, informe o seu nome no topo da página!");
+        document.getElementById('nome-cliente').focus();
+        return;
+      }
+
+      if (!tipoConsumo) {
+        alert("Por favor, selecione se o pedido é para consumo no local ou para viagem!");
+        document.getElementById('tipo-consumo').focus();
+        return;
+      }
+
+      if (!formaPagamento) {
+        alert("Por favor, selecione a forma de pagamento!");
+        document.getElementById('pagamento-cliente').focus();
+        return;
+      }
+
+      if (total === 0) {
+        alert("Por favor, selecione pelo menos um item!");
+        return;
+      }
+
+      const numeroWhatsApp = "5519996959473";
+      
+      let mensagem = "*NOVO PEDIDO - SAGRADA FUMAÇA EXPRESS*\n";
+      mensagem += `*Tipo:* ${tipoConsumo}\n\n`;
+      mensagem += `*Cliente:* ${nomeCliente}\n`;
+      mensagem += `*Pagamento:* ${formaPagamento}\n`;
+
+      if (obsCliente) {
+        mensagem += `*Observações:* ${obsCliente}\n`;
+      }
+
+      mensagem += "\n*Itens Selecionados:*\n";
+
+      for (const item in carrinho) {
+        if (carrinho[item].quantidade > 0) {
+          const subtotal = carrinho[item].quantidade * carrinho[item].preco;
+          mensagem += `• ${carrinho[item].quantidade}x ${item} - R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+        }
+      }
+
+      mensagem += `\n*Total a Pagar:* R$ ${total.toFixed(2).replace('.', ',')}\n`;
+
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      let url = "";
+      if (isMobile) {
+        url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+        window.location.href = url;
+      } else {
+        url = `https://web.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
+        window.open(url, '_blank');
+      }
+    }
+  </script>
+</body>
+</html>
