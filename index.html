@@ -58,7 +58,6 @@
       border-radius: 20px;
       backdrop-filter: blur(10px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
     }
 
     header img {
@@ -67,46 +66,18 @@
       display: block;
     }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .info-badge {
+      display: inline-block;
       font-size: 0.75rem;
       font-weight: 700;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
       margin-top: 15px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-    }
-
-    .status-badge.aberto {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      color: #4ade80;
-    }
-
-    .status-badge.fechado {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #f87171;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
-
-    .status-badge.aberto .status-dot {
-      background-color: #4ade80;
-      box-shadow: 0 0 8px #4ade80;
-    }
-
-    .status-badge.fechado .status-dot {
-      background-color: #f87171;
-      box-shadow: 0 0 8px #f87171;
+      background: rgba(255, 183, 3, 0.15);
+      border: 1px solid rgba(255, 183, 3, 0.3);
+      color: var(--accent);
     }
 
     .container {
@@ -356,14 +327,7 @@
       gap: 8px;
     }
 
-    .btn-finalizar:disabled {
-      background: #3f3f46;
-      color: #a1a1aa;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn-finalizar:not(:disabled):hover {
+    .btn-finalizar:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 25px rgba(255, 69, 0, 0.5);
     }
@@ -454,12 +418,12 @@
 <body>
 
   <header>
-    <div class="logo-container" onclick="gestorCliqueLogo()">
+    <div class="logo-container">
       <img src="logo.png" alt="Sagrada Fumaça Express" onerror="this.onerror=null; this.src='logo.jpg';">
     </div>
     <br>
-    <div id="badge-status-loja" class="status-badge aberto">
-      <span class="status-dot"></span> <span id="texto-status-loja">Aberto para pedidos</span>
+    <div class="info-badge">
+      SEU PEDIDO SERÁ DIRECIONADO AO NOSSO WHATSAPP
     </div>
   </header>
 
@@ -534,7 +498,7 @@
     <div class="item-card">
       <div class="item-info">
         <h3>Cupim</h3>
-        <p>Pão de hambúrguer artesanal, hambúrguer de cupim bovino defumado de 180gr, queijo prato, requeijão cremoso e maionese grill.</p>
+        <p>Pão de hambúrguer artesanal, hambúrguer de cupim bovino defumado de 180gr, mix de queijo (prato e cheddar processado) e cebola roxa.</p>
         <span class="item-preco">R$ 40,00</span>
       </div>
       <div class="item-acoes-direita">
@@ -559,6 +523,7 @@
           <span id="qtd-Cordeiro" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Cordeiro', 42.00, 1)">+</button>
         </div>
+        <img src="cordeiro.jpeg" alt="Cordeiro" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Cordeiro')">
       </div>
     </div>
 
@@ -675,6 +640,7 @@
           <span id="qtd-Porção Pão de Alho" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Porção Pão de Alho', 28.00, 1)">+</button>
         </div>
+        <img src="paodealho.jpg" alt="Porção Pão de Alho" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Pão de Alho')">
       </div>
     </div>
 
@@ -722,6 +688,10 @@
           <span id="qtd-Porção Tulipinha de Frango" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Porção Tulipinha de Frango', 48.00, 1)">+</button>
         </div>
+        HEAD
+
+        <img src="tulipinha.jpg" alt="Porção Tulipinha de Frango" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Tulipinha de Frango')">
+        3daca13 (Atualizando index.html)
       </div>
     </div>
 
@@ -764,10 +734,9 @@
   </div>
 
   <script>
-    let lojaAberta = true; 
     const carrinho = {};
-    let contadorCliquesLogo = 0;
 
+<<<<<<< HEAD
     window.onload = function() {
       const statusSalvo = localStorage.getItem('sagrada_loja_aberta');
       if (statusSalvo !== null) {
@@ -811,6 +780,8 @@
       setTimeout(() => { contadorCliquesLogo = 0; }, 2000);
     }
 
+=======
+>>>>>>> 3daca13 (Atualizando index.html)
     function abrirModalFoto(src, titulo) {
       const modal = document.getElementById('modal-foto');
       const img = document.getElementById('modal-foto-img');
@@ -861,11 +832,6 @@
     }
 
     function enviarWhatsApp() {
-      if (!lojaAberta) {
-        alert("Desculpe, estamos fechados para novos pedidos no momento!");
-        return;
-      }
-
       const nomeCliente = document.getElementById('nome-cliente').value.trim();
       const tipoConsumo = document.getElementById('tipo-consumo').value;
       const formaPagamento = document.getElementById('pagamento-cliente').value;
