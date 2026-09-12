@@ -235,7 +235,6 @@
       font-size: 1.1rem;
     }
 
-    /* LADO DIREITO: CONTROLES + FOTO */
     .item-acoes-direita {
       display: flex;
       flex-direction: column;
@@ -369,7 +368,6 @@
       box-shadow: 0 8px 25px rgba(255, 69, 0, 0.5);
     }
 
-    /* --- MODAL DE FOTO (LIGHTBOX ANIMADO) --- */
     .modal-foto-overlay {
       position: fixed;
       top: 0;
@@ -476,7 +474,7 @@
       <div class="form-group">
         <label for="tipo-consumo">Tipo de Pedido</label>
         <select id="tipo-consumo" class="cliente-select">
-          <option value="" disabled selected>Selecione se vai levar ou consumir aqui...</option>
+          <option value="" disabled selected>Selecione a opção desejada...</option>
           <option value="Consumir no Local">Consumir no Local</option>
           <option value="Para Viagem">Para Viagem</option>
         </select>
@@ -513,6 +511,7 @@
           <span id="qtd-Pão Carne Queijo" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pão Carne Queijo', 35.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.25.50.jpg" alt="Pão Carne Queijo" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pão Carne Queijo')">
       </div>
     </div>
 
@@ -528,6 +527,7 @@
           <span id="qtd-Pernil" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pernil', 37.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.26.00.jpg" alt="Pernil" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pernil')">
       </div>
     </div>
 
@@ -543,6 +543,7 @@
           <span id="qtd-Cupim" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Cupim', 40.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-19 at 17.39.57.jpg" alt="Cupim" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Cupim')">
       </div>
     </div>
 
@@ -576,6 +577,7 @@
           <span id="qtd-Pizza Mussarela" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Mussarela', 22.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-19 at 17.44.27.jpg" alt="Pizza Mussarela" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Mussarela')">
       </div>
     </div>
 
@@ -591,6 +593,7 @@
           <span id="qtd-Pizza Presunto e Queijo" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Presunto e Queijo', 22.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.26.10.jpg" alt="Pizza Presunto e Queijo" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Presunto e Queijo')">
       </div>
     </div>
 
@@ -606,6 +609,7 @@
           <span id="qtd-Pizza Calabresa e Queijo" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Calabresa e Queijo', 22.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-19 at 17.45.36.jpg" alt="Pizza Calabresa e Queijo" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Calabresa e Queijo')">
       </div>
     </div>
 
@@ -621,6 +625,7 @@
           <span id="qtd-Pizza Fraldinha" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Fraldinha', 26.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.27.30.jpg" alt="Pizza Fraldinha" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Fraldinha')">
       </div>
     </div>
 
@@ -636,6 +641,7 @@
           <span id="qtd-Pizza Frango" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Frango', 26.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.27.48.jpg" alt="Pizza Frango" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Frango')">
       </div>
     </div>
 
@@ -651,10 +657,26 @@
           <span id="qtd-Pizza Carne Seca" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Pizza Carne Seca', 26.00, 1)">+</button>
         </div>
+        <img src="WhatsApp Image 2026-08-11 at 12.27.55.jpg" alt="Pizza Carne Seca" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Pizza Carne Seca')">
       </div>
     </div>
 
     <h2 class="categoria-titulo">🍟 Porções</h2>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Pão de Alho</h3>
+        <p>4 unidades de pão de alho na chapa.</p>
+        <span class="item-preco">R$ 28,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Pão de Alho', 28.00, -1)">-</button>
+          <span id="qtd-Porção Pão de Alho" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Pão de Alho', 28.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
 
     <div class="item-card">
       <div class="item-info">
@@ -674,21 +696,6 @@
 
     <div class="item-card">
       <div class="item-info">
-        <h3>Medalhão na Chapa</h3>
-        <p>200gr de medalhão de frango e 2 unidades de pão de alho.</p>
-        <span class="item-preco">R$ 41,00</span>
-      </div>
-      <div class="item-acoes-direita">
-        <div class="controles-qtd">
-          <button class="btn-qtd" onclick="alterarQtd('Porção Medalhão na Chapa', 41.00, -1)">-</button>
-          <span id="qtd-Porção Medalhão na Chapa" class="qtd-numero">0</span>
-          <button class="btn-qtd" onclick="alterarQtd('Porção Medalhão na Chapa', 41.00, 1)">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="item-card">
-      <div class="item-info">
         <h3>Fraldinha</h3>
         <p>200gr de fraldinha bovina defumada, 1 unidade de pão de alho e 1 unidade de queijo coalho.</p>
         <span class="item-preco">R$ 44,00</span>
@@ -700,6 +707,37 @@
           <button class="btn-qtd" onclick="alterarQtd('Porção Fraldinha', 44.00, 1)">+</button>
         </div>
         <img src="fraldinha.jpg" alt="Porção Fraldinha" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Fraldinha')">
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Tulipinha de Frango</h3>
+        <p>10 unidades de tulipa de frango defumada coberta com barbecue artesanal.</p>
+        <span class="item-preco">R$ 48,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Tulipinha de Frango', 48.00, -1)">-</button>
+          <span id="qtd-Porção Tulipinha de Frango" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Tulipinha de Frango', 48.00, 1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="item-card">
+      <div class="item-info">
+        <h3>Costelinha Barbecue</h3>
+        <p>400gr de costelinha suína defumada coberta com barbecue artesanal e 1 unidade de pão de alho.</p>
+        <span class="item-preco">R$ 52,00</span>
+      </div>
+      <div class="item-acoes-direita">
+        <div class="controles-qtd">
+          <button class="btn-qtd" onclick="alterarQtd('Porção Costelinha Barbecue', 52.00, -1)">-</button>
+          <span id="qtd-Porção Costelinha Barbecue" class="qtd-numero">0</span>
+          <button class="btn-qtd" onclick="alterarQtd('Porção Costelinha Barbecue', 52.00, 1)">+</button>
+        </div>
+        <img src="WhatsApp Image 2026-08-19 at 17.34.24.jpg" alt="Porção Costelinha Barbecue" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Costelinha Barbecue')">
       </div>
     </div>
 
@@ -717,7 +755,6 @@
     </div>
   </div>
 
-  <!-- CONTAINER DO MODAL DE FOTO FULLSCREEN -->
   <div id="modal-foto" class="modal-foto-overlay" onclick="fecharModalFoto()">
     <div class="modal-foto-container" onclick="event.stopPropagation()">
       <button class="btn-fechar-modal" onclick="fecharModalFoto()">✕</button>
@@ -774,7 +811,6 @@
       setTimeout(() => { contadorCliquesLogo = 0; }, 2000);
     }
 
-    /* --- FUNÇÕES DO MODAL DE FOTO ANIMADO --- */
     function abrirModalFoto(src, titulo) {
       const modal = document.getElementById('modal-foto');
       const img = document.getElementById('modal-foto-img');
@@ -843,7 +879,7 @@
       }
 
       if (!tipoConsumo) {
-        alert("Por favor, selecione se o pedido é para consumo no local ou para viagem!");
+        alert("Por favor, selecione o tipo de pedido!");
         document.getElementById('tipo-consumo').focus();
         return;
       }
