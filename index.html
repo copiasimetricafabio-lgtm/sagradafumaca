@@ -688,10 +688,7 @@
           <span id="qtd-Porção Tulipinha de Frango" class="qtd-numero">0</span>
           <button class="btn-qtd" onclick="alterarQtd('Porção Tulipinha de Frango', 48.00, 1)">+</button>
         </div>
-        HEAD
-
         <img src="tulipinha.jpg" alt="Porção Tulipinha de Frango" class="item-foto-thumb" onclick="abrirModalFoto(this.src, 'Porção Tulipinha de Frango')">
-        3daca13 (Atualizando index.html)
       </div>
     </div>
 
@@ -736,52 +733,6 @@
   <script>
     const carrinho = {};
 
-<<<<<<< HEAD
-    window.onload = function() {
-      const statusSalvo = localStorage.getItem('sagrada_loja_aberta');
-      if (statusSalvo !== null) {
-        lojaAberta = JSON.parse(statusSalvo);
-      }
-      atualizarStatusLoja();
-    };
-
-    function atualizarStatusLoja() {
-      const badge = document.getElementById('badge-status-loja');
-      const textoStatus = document.getElementById('texto-status-loja');
-      const btnFinalizar = document.getElementById('btn-finalizar');
-
-      if (lojaAberta) {
-        badge.className = "status-badge aberto";
-        textoStatus.innerText = "Aberto para pedidos";
-        btnFinalizar.disabled = false;
-        btnFinalizar.style.opacity = "1";
-      } else {
-        badge.className = "status-badge fechado";
-        textoStatus.innerText = "Fechado no momento";
-        btnFinalizar.disabled = true;
-        btnFinalizar.style.opacity = "0.5";
-      }
-    }
-
-    function gestorCliqueLogo() {
-      contadorCliquesLogo++;
-      if (contadorCliquesLogo === 3) {
-        contadorCliquesLogo = 0;
-        const confirmacao = confirm(
-          `PAINEL DO GESTOR:\nA loja está atualmente ${lojaAberta ? 'ABERTA' : 'FECHADA'}.\n\nDeseja alterar o status agora?`
-        );
-        if (confirmacao) {
-          lojaAberta = !lojaAberta;
-          localStorage.setItem('sagrada_loja_aberta', JSON.stringify(lojaAberta));
-          atualizarStatusLoja();
-          alert(`Status alterado com sucesso! Agora a loja está: ${lojaAberta ? 'ABERTA' : 'FECHADA'}`);
-        }
-      }
-      setTimeout(() => { contadorCliquesLogo = 0; }, 2000);
-    }
-
-=======
->>>>>>> 3daca13 (Atualizando index.html)
     function abrirModalFoto(src, titulo) {
       const modal = document.getElementById('modal-foto');
       const img = document.getElementById('modal-foto-img');
